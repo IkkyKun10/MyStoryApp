@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="no_validate_email">Silahkan isi alamat email dengan benar!</string>
+    <string name="password_validete">Isikan password lebih dari 6 digit!</string>
+</resources>
