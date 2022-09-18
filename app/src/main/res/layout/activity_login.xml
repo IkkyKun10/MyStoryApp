@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.authenticasion.login.LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@drawable/up_bg_screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:fontFamily="@font/bevan"
+            android:text="@string/masuk"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toTopOf="@id/margin_top" />
+
+        <ImageView
+            android:id="@+id/img_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:contentDescription="@string/example_account_user"
+            android:src="@drawable/person1_login"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            android:layout_marginTop="-20dp"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_app" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:alpha="0"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@+id/img_account" />
+
+        <com.riezki.storyapp.ui.customview.EmailEditText
+            android:id="@+id/til_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:hint="@string/write_email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:alpha="0"
+            android:text="@string/password"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@+id/til_email" />
+
+        <com.riezki.storyapp.ui.customview.PasswordEditText
+            android:id="@+id/til_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:hint="@string/write_password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0"
+            android:text="@string/masuk"
+            android:textAllCaps="false"
+            android:textColor="@color/midnight_blue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:elevation="30dp"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:alpha="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="14dp"
+            android:text="@string/tv_register"
+            android:textColor="@color/dark_black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progressBar"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_rawRes="@raw/loading_anim"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_speed="1.15"
+            android:visibility="invisible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

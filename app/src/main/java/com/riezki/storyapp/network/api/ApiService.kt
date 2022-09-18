@@ -12,27 +12,26 @@ import retrofit2.http.*
 interface ApiService {
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("login")
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
     ) : Call<LoginResponse>
 
-    @FormUrlEncoded
-    @POST("/register")
+    @POST("register")
     fun registerUser(
         @Body param: Map<String, String>
     ) : Call<RegisterResponse>
 
-    @GET("/stories")
+    @GET("stories")
     fun getListUser(
         @Header("Authorization") token: String,
-        @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("page") page: Int? = 1,
+        @Query("size") size: Int? = 10
     ) : Call<ListStoryResponse>
 
     @Multipart
-    @POST("/v1/stories")
+    @POST("stories")
     fun uploadImage(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,

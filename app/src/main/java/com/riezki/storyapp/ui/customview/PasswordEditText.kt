@@ -6,7 +6,9 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.riezki.storyapp.R
 
 class PasswordEditText : AppCompatEditText {
@@ -27,6 +29,7 @@ class PasswordEditText : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
     }
 
     private fun init() {
