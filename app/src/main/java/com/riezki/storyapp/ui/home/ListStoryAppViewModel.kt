@@ -17,7 +17,11 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class ListStoryAppViewModel(private val dataStore: DataStorePreference) : ViewModel() {
-    private val TAG = "ListStoryViewModel"
+
+    companion object {
+        private const val TAG = "ListStoryViewModel"
+    }
+
     val userTokenFromDataStore = dataStore.readTokenFromDataStore.asLiveData()
 
     private var result = MutableLiveData<Resource<List<ItemListStoryEntity>>>()

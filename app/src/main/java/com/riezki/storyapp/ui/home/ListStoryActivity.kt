@@ -41,6 +41,7 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
         binding.fabAddStory.setOnClickListener {
             Intent(this, AddStoryActivity::class.java).also {
                 startActivity(it)
+                finish()
             }
         }
 
@@ -87,11 +88,7 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
     }
 
     private fun showLoading(state: Boolean) {
-        if(state) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        if (state) binding.progressBar.visibility = View.VISIBLE else View.GONE
     }
 
     override fun onItemClick(itemListStory: ItemListStoryEntity) {

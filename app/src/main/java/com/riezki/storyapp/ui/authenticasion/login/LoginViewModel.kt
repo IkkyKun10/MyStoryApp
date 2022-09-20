@@ -18,8 +18,7 @@ import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-class LoginViewModel() : ViewModel() {
-    private val TAG = "login ViewModel"
+class LoginViewModel : ViewModel() {
 
     private var result = MutableLiveData<Resource<LoginResultEntity>>()
 
@@ -70,8 +69,6 @@ class LoginViewModel() : ViewModel() {
     }
 
     fun saveTokenDataStore(dataStoreSource: DataStorePreference, token: String) {
-        // since saving data with data-store usually running in suspend or coroutine scope,
-        // hence the reason why I called saveTokenToDataStore in the coroutine scope
         viewModelScope.launch {
             dataStoreSource.saveTokenToDataStore(token)
         }
@@ -79,7 +76,6 @@ class LoginViewModel() : ViewModel() {
 
     fun saveLoginStateDataStore(dataStoreSource: DataStorePreference) {
         viewModelScope.launch {
-            // since i already have default parameter, i don't need to specify the parameter
             dataStoreSource.saveLoginToDataStore()
         }
     }

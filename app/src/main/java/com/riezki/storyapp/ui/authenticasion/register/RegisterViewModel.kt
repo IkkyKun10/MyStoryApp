@@ -17,7 +17,10 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class RegisterViewModel : ViewModel() {
-    private val TAG = "register ViewModel"
+
+    companion object {
+        private const val TAG = "register ViewModel"
+    }
 
     private var result = MutableLiveData<Resource<RegisterResultEntity>>()
 

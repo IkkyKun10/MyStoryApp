@@ -6,12 +6,9 @@ import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -63,15 +60,14 @@ class AddStoryActivity : AppCompatActivity() {
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener { uploadImage() }
-        binding.fabBack.setOnClickListener { onBackPressed() }
+        binding.fabBack.setOnClickListener { Intent(this, ListStoryActivity::class.java).also {
+            startActivity(it)
+            finish()
+        } }
     }
 
     private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        if (state) binding.progressBar.visibility = View.VISIBLE else View.GONE
     }
 
     private fun startTakePhoto() {
@@ -117,10 +113,10 @@ class AddStoryActivity : AppCompatActivity() {
                     Toast.makeText(this, "Gambar berhasil diupload", Toast.LENGTH_SHORT).show()
                 }
             }
-//            Intent(this, ListStoryActivity::class.java).also {
-//                startActivity(it)
-//                finish()
-//            }
+            Intent(this, ListStoryActivity::class.java).also {
+                startActivity(it)
+                finish()
+            }
         } else {
             showLoading(false)
             Toast.makeText(this, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()

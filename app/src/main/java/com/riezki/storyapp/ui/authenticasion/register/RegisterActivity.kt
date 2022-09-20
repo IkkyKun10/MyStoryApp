@@ -52,12 +52,6 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
-//                    if (it.data?.error == true) {
-//                        Toast.makeText(
-//                            this, "Register Failed", Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                    else {
                         Toast.makeText(this, "${it.data?.message}", Toast.LENGTH_SHORT
                         ).show()
                         Intent(this, LoginActivity::class.java).also { intent ->
@@ -79,13 +73,11 @@ class RegisterActivity : AppCompatActivity() {
         with(binding) {
             return when{
                 tilEmail.isError || tilEmail.text?.isEmpty() == true -> {
-                    //tilEmail.requestFocus()
                     tilEmail.error = "Silahkan isi email anda terlebih dahulu"
                     false
                 }
 
                 tilPassword.isError || tilPassword.text?.isEmpty() == true -> {
-                    //tilPassword.requestFocus()
                     tilPassword.error = "Silahkan isi password anda terlebih dahulu"
                     false
 

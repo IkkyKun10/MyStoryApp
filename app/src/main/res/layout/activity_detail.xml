@@ -88,7 +88,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_imageview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             app:layout_constraintStart_toEndOf="@id/margin_left"
             app:layout_constraintEnd_toStartOf="@id/margin_right"
             app:layout_constraintTop_toBottomOf="@id/username_detail"
@@ -113,6 +113,7 @@
             android:id="@+id/desc_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintTop_toBottomOf="@id/cv_imageview"

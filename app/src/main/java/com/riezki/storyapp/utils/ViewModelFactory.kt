@@ -25,9 +25,6 @@ class ViewModelFactory(private val dataStoreRepository: DataStorePreference) :
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(dataStoreRepository) as T
             }
-//            modelClass.isAssignableFrom(RegisterActivity::class.java) -> {
-//                RegisterViewModel() as T
-//            }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
     }

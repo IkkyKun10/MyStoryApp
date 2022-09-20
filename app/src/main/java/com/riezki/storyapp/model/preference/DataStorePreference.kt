@@ -17,10 +17,10 @@ class DataStorePreference(private val dataStore: DataStore<Preferences>) {
         val loginStatePreferenceKey = booleanPreferencesKey("login_state_preference_key")
     }
 
-    // since saving data with data-store usually running in suspend or coroutine scope,
+
     suspend fun saveTokenToDataStore(token: String) {
         dataStore.edit { mutablePreferences ->
-            // data-store format [name] = value
+
             mutablePreferences[PreferenceKeys.tokenPreferenceKey] = token
         }
     }
@@ -39,12 +39,10 @@ class DataStorePreference(private val dataStore: DataStore<Preferences>) {
             tokenUser
         }
 
-    // since saving data with data-store usually running in suspend or coroutine scope,
-    // since this will always run after successfully login
-    // i'm just going to put 'true' boolean as a default parameter.
+
     suspend fun saveLoginToDataStore(state: Boolean = true) {
         dataStore.edit { mutablePreferences ->
-            // data-store format [name] = value
+
             mutablePreferences[PreferenceKeys.loginStatePreferenceKey] = state
         }
     }
