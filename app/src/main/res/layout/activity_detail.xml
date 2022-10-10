@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingBottom="14dp"
         tools:context=".ui.detail.DetailActivity">
 
@@ -20,53 +20,6 @@
             android:background="@drawable/bg_up_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/person_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-250dp"
-            android:src="@drawable/ic_person_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bg_up_detail"
-            android:contentDescription="@string/username"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/blackAlpha"
-            android:transitionName="username"
-            app:layout_constraintStart_toStartOf="@id/username_detail"
-            app:layout_constraintEnd_toEndOf="@id/username_detail"
-            app:layout_constraintTop_toTopOf="@id/username_detail"
-            app:layout_constraintBottom_toBottomOf="@id/username_detail"
-            />
-
-        <TextView
-            android:id="@+id/username_detail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:layout_marginTop="-100dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            style="@style/TextAppearance.Material3.TitleMedium"
-            tools:text="Nama Pengguna"
-            app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/person_detail" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/back_to_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:contentDescription="@string/back"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -80,18 +33,25 @@
             android:id="@+id/margin_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_end="20dp" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="50dp" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_imageview"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="500dp"
             app:layout_constraintStart_toEndOf="@id/margin_left"
             app:layout_constraintEnd_toStartOf="@id/margin_right"
-            app:layout_constraintTop_toBottomOf="@id/username_detail"
+            app:layout_constraintTop_toTopOf="@id/margin_top"
             android:layout_marginTop="12dp"
             app:cardElevation="14dp"
             app:cardCornerRadius="14dp"
@@ -107,19 +67,80 @@
                 tools:src="@tools:sample/avatars"
                 android:contentDescription="@string/story_image"/>
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/back_to_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/teal_transparent_50"
+                android:contentDescription="@string/back"
+                android:src="@drawable/ic_back"
+                />
+
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/desc_detail"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_imageview"
             android:layout_marginTop="12dp"
-            tools:text="Ini adalah descripsi dari image detail"
-            style="@style/TextAppearance.AppCompat.Medium"/>
+            app:cardElevation="6dp"
+            app:cardCornerRadius="14dp"
+            app:cardBackgroundColor="@color/grey_50"
+            app:cardUseCompatPadding="true"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/blackAlpha"
+                    android:transitionName="username"
+                    app:layout_constraintStart_toStartOf="@id/username_detail"
+                    app:layout_constraintEnd_toEndOf="@id/username_detail"
+                    app:layout_constraintTop_toTopOf="@id/username_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/username_detail"
+                    />
+
+                <TextView
+                    android:id="@+id/username_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textStyle="bold"
+                    android:textSize="32sp"
+                    android:textColor="@color/white"
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    tools:text="Nama Pengguna"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/desc_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/username_detail"
+                    android:layout_marginTop="12dp"
+                    tools:text="Ini adalah descripsi dari image detail"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:paddingBottom="12dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

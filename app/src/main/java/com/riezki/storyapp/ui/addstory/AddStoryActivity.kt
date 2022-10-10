@@ -12,11 +12,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.riezki.storyapp.databinding.ActivityAddStoryBinding
+import com.riezki.storyapp.databinding.PopupAddstoryBinding
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.ui.authenticasion.login.dataStore
 import com.riezki.storyapp.ui.home.ListStoryActivity
@@ -108,15 +110,31 @@ class AddStoryActivity : AppCompatActivity() {
             viewModel.userTokenFromDataStore.observe(this) { tokenUser ->
                 token = tokenUser
 
-                viewModel.setUploadImage(this, "Bearer $token", imageMultipart, description).observe(this) {
+                viewModel.setUploadImage(this, "Bearer $token", imageMultipart, description).observe(this) { addStory ->
                     showLoading(false)
-                    Toast.makeText(this, "Gambar berhasil diupload", Toast.LENGTH_SHORT).show()
+                    if (addStory.error == true) {
+                        Toast.makeText(this, "Gambar Gagal diupload, terjadi kesalahan!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val view = PopupAddstoryBinding.inflate(layoutInflater)
+                        val builder = AlertDialog.Builder(this)
+                            .setView(view.root)
+
+                        val dialog = builder.create()
+                        dialog.show()
+                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                        dialog.setCancelable(false)
+
+                        view.btnOk.setOnClickListener {
+                            Intent(this, ListStoryActivity::class.java).also {
+                                startActivity(it)
+                                finish()
+                            }
+                            dialog.dismiss()
+                        }
+                    }
                 }
             }
-            Intent(this, ListStoryActivity::class.java).also {
-                startActivity(it)
-                finish()
-            }
+
         } else {
             showLoading(false)
             Toast.makeText(this, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()

@@ -60,16 +60,16 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
                 if (list != null) {
                     when (list) {
                         is Resource.Loading -> {
-
+                            showLoading(true)
                         }
 
                         is Resource.Success -> {
-
+                            showLoading(false)
                             adapter.submitList(list.data)
                         }
 
                         is Resource.Error -> {
-
+                            showLoading(false)
                             Toast.makeText(this, "List Gagal ditampilkan", Toast.LENGTH_SHORT).show()
                             binding.errorPage.visibility = View.VISIBLE
                         }

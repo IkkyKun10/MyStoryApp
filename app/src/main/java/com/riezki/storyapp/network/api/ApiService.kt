@@ -16,19 +16,19 @@ interface ApiService {
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
-    ) : Call<LoginResponse>
+    ): Call<LoginResponse>
 
     @POST("register")
     fun registerUser(
         @Body param: Map<String, String>
-    ) : Call<RegisterResponse>
+    ): Call<RegisterResponse>
 
     @GET("stories")
     fun getListUser(
         @Header("Authorization") token: String,
         @Query("page") page: Int? = 1,
         @Query("size") size: Int? = 10
-    ) : Call<ListStoryResponse>
+    ): Call<ListStoryResponse>
 
     @Multipart
     @POST("stories")
