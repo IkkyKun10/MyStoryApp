@@ -37,7 +37,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
     private val viewModel by viewModels<AddStoryViewModel> {
-        ViewModelFactory(DataStorePreference(dataStore))
+        ViewModelFactory.getInstance(this)
     }
 
     private lateinit var currentPhotoPath: String

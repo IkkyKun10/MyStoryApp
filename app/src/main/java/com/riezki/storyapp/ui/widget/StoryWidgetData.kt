@@ -5,12 +5,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.lifecycle.liveData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.riezki.storyapp.R
-import com.riezki.storyapp.model.response.ListStoryItem
+import com.riezki.storyapp.model.response.ListStoryItemResponse
 import com.riezki.storyapp.model.response.ListStoryResponse
 import com.riezki.storyapp.network.api.ApiConfig
 import retrofit2.Call
@@ -35,7 +36,7 @@ internal object StoryWidgetData {
 
     fun getStory(token: String?, context: Context?, appWidgetId: Int, page: Int = 1, size: Int = maxImages) {
         removeAll()
-        val client = token?.let { ApiConfig().getApiService().getListUser(it, page, size) }
+        val client = token?.let { ApiConfig().getApiService().getListImageUser(it, page, size) }
         client?.enqueue(object : Callback<ListStoryResponse> {
             override fun onResponse(call: Call<ListStoryResponse>, response: Response<ListStoryResponse>) {
                 val imgResponse = response.body()
@@ -53,7 +54,7 @@ internal object StoryWidgetData {
         })
     }
 
-    private fun getImageFromServer(context: Context?, appWidgetId: Int, stories: List<ListStoryItem?>?) {
+    private fun getImageFromServer(context: Context?, appWidgetId: Int, stories: List<ListStoryItemResponse?>?) {
         stories?.forEach {
             if (getCount <= maxImages) {
                 Glide.with(context!!)

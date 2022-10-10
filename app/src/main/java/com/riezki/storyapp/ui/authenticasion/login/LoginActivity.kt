@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private val viewModel: LoginViewModel by viewModels {
-        ViewModelFactory(DataStorePreference(dataStore))
+        ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

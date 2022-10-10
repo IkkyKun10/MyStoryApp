@@ -3,14 +3,14 @@ package com.riezki.storyapp.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.riezki.storyapp.model.response.ListStoryItem
+import com.riezki.storyapp.model.local.ItemListStoryEntity
 import com.riezki.storyapp.network.api.ApiService
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.wrapEspressoIdlingResource
 
 class StoryRepository(private val apiService: ApiService) {
 
-    fun getStoryUser(token: String): LiveData<Resource<List<ListStoryItem>?>> {
+    fun getStoryUser(token: String): LiveData<Resource<List<ItemListStoryEntity>?>> {
         return liveData {
             emit(Resource.Loading())
             wrapEspressoIdlingResource {
@@ -18,14 +18,12 @@ class StoryRepository(private val apiService: ApiService) {
                     val response = apiService.getListUser(token)
                     val userStoryItem = response.listStory
                     val newStory = userStoryItem?.map { storyItem ->
-                        ListStoryItem(
+                        ItemListStoryEntity(
                             photoUrl = storyItem?.photoUrl ?: "",
                             createdAt = storyItem?.createdAt ?: "",
                             name = storyItem?.name ?: "",
                             description = storyItem?.description ?: "",
-                            lat = storyItem?.lat ?: 0.0,
-                            lon = storyItem?.lon ?: 0.0,
-                            id = storyItem?.id ?: ""
+                            idUser = storyItem?.id ?: ""
                         )
                     }
 

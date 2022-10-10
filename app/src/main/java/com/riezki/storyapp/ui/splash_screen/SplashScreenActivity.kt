@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 class SplashScreenActivity : AppCompatActivity() {
 
     private val viewModel: SplashScreenViewModel by viewModels {
-        ViewModelFactory(DataStorePreference(dataStore))
+        ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -27,7 +27,7 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
 
     private lateinit var binding: ActivityListStoryBinding
     private val viewModel: ListStoryAppViewModel by viewModels {
-        ViewModelFactory(DataStorePreference(dataStore))
+        ViewModelFactory.getInstance(this)
     }
     private lateinit var adapter: ListStoryAdapter
 
@@ -54,8 +54,7 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
         viewModel.userTokenFromDataStore.observe(this) {
             token = it
 
-            viewModel.setListStory("Bearer $token")
-            viewModel.getListUser().observe(this) { list ->
+            viewModel.getListStory("Bearer $token").observe(this) { list ->
                 showLoading(false)
                 if (list != null) {
                     when (list) {

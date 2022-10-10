@@ -30,6 +30,13 @@ interface ApiService {
         @Query("size") size: Int? = 10
     ): ListStoryResponse
 
+    @GET("stories")
+    fun getListImageUser(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int? = 1,
+        @Query("size") size: Int? = 10
+    ): Call<ListStoryResponse>
+
     @Multipart
     @POST("stories")
     fun uploadImage(
