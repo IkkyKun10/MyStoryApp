@@ -27,53 +27,7 @@ class ListStoryAppViewModel(private val dataStore: DataStorePreference) : ViewMo
     private var result = MutableLiveData<Resource<List<ItemListStoryEntity>>>()
 
     fun setListStory(token: String) {
-        val apiService = ApiConfig().getApiService()
 
-        apiService.getListUser(token).enqueue(object : Callback<ListStoryResponse> {
-            override fun onResponse(call: Call<ListStoryResponse>, response: Response<ListStoryResponse>) {
-                val responseBody = response.body()?.listStory
-
-                if (response.isSuccessful) {
-                    if (responseBody != null) {
-                        result.postValue(
-                            Resource.Success(
-                                responseBody.map {
-                                    ItemListStoryEntity(
-                                        photoUrl = it?.photoUrl ?: "",
-                                        createdAt = it?.createdAt ?: "",
-                                        name = it?.name ?: "",
-                                        description = it?.description ?: "",
-                                        idUser = it?.id ?: ""
-                                    )
-                                }
-                            )
-                        )
-                    }
-                }
-                else {
-                    result.value = Resource.Error(response.code(), response.message(), null)
-                    Log.e(TAG, response.message())
-                }
-            }
-
-            override fun onFailure(call: Call<ListStoryResponse>, t: Throwable) {
-                when (t) {
-                    is UnknownHostException ->{
-                        result.value =
-                            Resource.Error(ErrorCode.ERR_INTERNET_CONNECTION, t.message ?: "", null)
-                    }
-                    is SocketTimeoutException ->{
-                        result.value =
-                            Resource.Error(ErrorCode.REQUEST_TIME_OUT, t.message ?: "", null)
-                    }
-                    is HttpException ->{
-                        result.value =
-                            Resource.Error(t.code(), t.message ?: "", null)
-                    }
-                }
-            }
-
-        })
     }
 
     fun getListUser() : LiveData<Resource<List<ItemListStoryEntity>>> {
