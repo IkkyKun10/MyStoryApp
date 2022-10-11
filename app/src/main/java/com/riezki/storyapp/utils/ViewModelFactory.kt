@@ -8,6 +8,7 @@ import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
 import com.riezki.storyapp.ui.addstory.AddStoryViewModel
 import com.riezki.storyapp.ui.authenticasion.login.LoginViewModel
+import com.riezki.storyapp.ui.authenticasion.register.RegisterViewModel
 import com.riezki.storyapp.ui.home.ListStoryAppViewModel
 import com.riezki.storyapp.ui.splash_screen.SplashScreenViewModel
 
@@ -30,6 +31,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(dataStoreRepository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+                RegisterViewModel(storyRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

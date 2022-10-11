@@ -61,7 +61,7 @@ class StoryRepository(private val apiService: ApiService) {
                     emit(Resource.Success(newLoginUser))
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Log.e("StoryRepository","GetLoginUser: ${e.message.toString()}")
+                    Log.e("StoryRepository","getLoginUser: ${e.message.toString()}")
                     emit(Resource.Error(
                         statusCode = e.hashCode(),
                         message = e.message.toString(),
@@ -83,9 +83,20 @@ class StoryRepository(private val apiService: ApiService) {
                     param["password"] = password
 
                     val response = apiService.registerUser(param)
+                    val registerUser = response.message
+                    val newResponse = RegisterResultEntity(
+                        message = registerUser ?: ""
+                    )
 
+                    emit(Resource.Success(newResponse))
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
+                    Log.e("StoryRepository","getRegisterUser: ${e.message.toString()}")
+                    emit(Resource.Error(
+                        statusCode = e.hashCode(),
+                        message = e.message.toString(),
+                        data = null
+                    ))
                 }
             }
         }

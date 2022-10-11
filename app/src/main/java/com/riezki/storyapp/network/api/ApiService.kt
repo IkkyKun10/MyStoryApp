@@ -21,7 +21,7 @@ interface ApiService {
     @POST("register")
     fun registerUser(
         @Body param: Map<String, String>
-    ): Call<RegisterResponse>
+    ): RegisterResponse
 
     @GET("stories")
     fun getListUser(

@@ -11,11 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.riezki.storyapp.databinding.ActivityRegisterBinding
 import com.riezki.storyapp.ui.authenticasion.login.LoginActivity
 import com.riezki.storyapp.utils.Resource
+import com.riezki.storyapp.utils.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val viewModel by viewModels<RegisterViewModel>()
+    private val viewModel by viewModels<RegisterViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun getRegister() {
         showLoading(true)
-        viewModel.setRegister(
+
+        viewModel.getRegisterUser(
             binding.tilUsername.text.toString(),
             binding.tilEmail.text.toString(),
             binding.tilPassword.text.toString()
-        )
-        viewModel.getRegisterUser().observe(this) {
+        ).observe(this) {
             showLoading(false)
             when (it) {
                 is Resource.Loading -> {
