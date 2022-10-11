@@ -16,7 +16,7 @@ interface ApiService {
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): LoginResponse
 
     @POST("register")
     fun registerUser(

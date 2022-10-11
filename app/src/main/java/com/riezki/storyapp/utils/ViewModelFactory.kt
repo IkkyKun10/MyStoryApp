@@ -26,7 +26,7 @@ class ViewModelFactory(
                 ListStoryAppViewModel(dataStoreRepository, storyRepository) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel() as T
+                LoginViewModel(storyRepository) as T
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(dataStoreRepository) as T

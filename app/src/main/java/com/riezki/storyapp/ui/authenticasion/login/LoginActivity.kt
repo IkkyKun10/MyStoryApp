@@ -44,9 +44,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        
-        binding.register.setOnClickListener { 
-            Intent(this, RegisterActivity::class.java).also { 
+
+        binding.register.setOnClickListener {
+            Intent(this, RegisterActivity::class.java).also {
                 startActivity(it)
             }
         }
@@ -56,8 +56,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun getLogin() {
         showLoading(true)
-        viewModel.setLogin(binding.tilEmail.text.toString(), binding.tilPassword.text.toString())
-        viewModel.getLoginUser().observe(this) {
+        viewModel.getLoginUser(
+            binding.tilEmail.text.toString(),
+            binding.tilPassword.text.toString()
+        ).observe(this) {
             showLoading(false)
             when (it) {
                 is Resource.Loading -> {
@@ -82,9 +84,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateLogin() : Boolean {
+    private fun validateLogin(): Boolean {
         with(binding) {
-            return when{
+            return when {
                 tilEmail.isError || tilEmail.text?.isEmpty() == true -> {
                     tilEmail.requestFocus()
                     false
@@ -94,7 +96,8 @@ class LoginActivity : AppCompatActivity() {
                     tilPassword.requestFocus()
                     false
 
-                } else -> {
+                }
+                else -> {
                     tilEmail.error = null
                     tilPassword.error = null
                     true
