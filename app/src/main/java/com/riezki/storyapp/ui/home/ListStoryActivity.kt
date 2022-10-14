@@ -9,19 +9,24 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.util.Pair
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riezki.storyapp.R
 import com.riezki.storyapp.databinding.ActivityListStoryBinding
 import com.riezki.storyapp.databinding.ItemListStoryBinding
 import com.riezki.storyapp.model.local.ItemListStoryEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
+import com.riezki.storyapp.paging.adapter.LoadingStateAdapter
 import com.riezki.storyapp.ui.addstory.AddStoryActivity
 import com.riezki.storyapp.ui.authenticasion.login.LoginActivity
 import com.riezki.storyapp.ui.authenticasion.login.dataStore
 import com.riezki.storyapp.ui.detail.DetailActivity
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 
 class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
 
@@ -49,13 +54,13 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
     }
 
     private fun getListDataServer() {
-        showLoading(true)
+        //showLoading(true)
         var token = ""
         viewModel.userTokenFromDataStore.observe(this) {
             token = it
 
-            viewModel.getListStory("Bearer $token").observe(this) { list ->
-                showLoading(false)
+            viewModel.getListStory("Bearer $token").observe(this@ListStoryActivity) { list ->
+                //showLoading(false)
                 if (list != null) {
                     when (list) {
                         is Resource.Loading -> {
@@ -64,7 +69,9 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
 
                         is Resource.Success -> {
                             showLoading(false)
-                            adapter.submitList(list.data)
+                            list.data?.let { data ->
+                                adapter.submitData(lifecycle, data)
+                            }
                         }
 
                         is Resource.Error -> {
@@ -82,7 +89,9 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
     private fun showListAdapter() {
         adapter = ListStoryAdapter(this)
         binding.rvListStory.layoutManager = LinearLayoutManager(this)
-        binding.rvListStory.adapter = adapter
+        binding.rvListStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { adapter.retry() }
+        )
         binding.rvListStory.setHasFixedSize(true)
     }
 

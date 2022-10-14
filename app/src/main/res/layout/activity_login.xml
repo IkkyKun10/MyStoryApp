@@ -78,18 +78,33 @@
             app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintTop_toBottomOf="@+id/img_account" />
 
-        <com.riezki.storyapp.ui.customview.EmailEditText
-            android:id="@+id/til_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/field_layout_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0"
-            android:hint="@string/write_email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/dark_grey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeWidth="2dp"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+            app:layout_constraintTop_toBottomOf="@id/tv_email">
+
+            <com.riezki.storyapp.ui.customview.EmailEditText
+                android:id="@+id/til_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:hint="@string/write_email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/dark_grey"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_password"
@@ -102,20 +117,36 @@
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@+id/til_email" />
+            app:layout_constraintTop_toBottomOf="@+id/field_layout_email" />
 
-        <com.riezki.storyapp.ui.customview.PasswordEditText
-            android:id="@+id/til_password"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/field_layout_pwd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0"
-            android:hint="@string/write_password"
-            android:inputType="textPassword"
-            android:textColorHint="@color/dark_grey"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeWidth="2dp"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_password" />
+            app:layout_constraintTop_toBottomOf="@id/tv_password">
+
+            <com.riezki.storyapp.ui.customview.PasswordEditText
+                android:id="@+id/til_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:hint="@string/write_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/dark_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
@@ -133,7 +164,7 @@
             app:elevation="30dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/til_password" />
+            app:layout_constraintTop_toBottomOf="@id/field_layout_pwd" />
 
         <TextView
             android:id="@+id/register"

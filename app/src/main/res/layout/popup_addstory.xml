@@ -4,6 +4,7 @@
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_margin="22dp"
     android:background="@drawable/circle_bg_popup">
 
     <ImageView

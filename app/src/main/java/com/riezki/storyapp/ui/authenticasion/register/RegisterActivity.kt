@@ -55,12 +55,13 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
-                        Toast.makeText(this, "${it.data?.message}", Toast.LENGTH_SHORT
-                        ).show()
-                        Intent(this, LoginActivity::class.java).also { intent ->
-                            startActivity(intent)
-                            finish()
-                        }
+                    Toast.makeText(
+                        this, "${it.data?.message}", Toast.LENGTH_SHORT
+                    ).show()
+                    Intent(this, LoginActivity::class.java).also { intent ->
+                        startActivity(intent)
+                        finish()
+                    }
                 }
 
                 is Resource.Error -> {
@@ -72,9 +73,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateLogin() : Boolean {
+    private fun validateLogin(): Boolean {
         with(binding) {
-            return when{
+            return when {
                 tilEmail.isError || tilEmail.text?.isEmpty() == true -> {
                     tilEmail.error = "Silahkan isi email anda terlebih dahulu"
                     false
@@ -84,7 +85,8 @@ class RegisterActivity : AppCompatActivity() {
                     tilPassword.error = "Silahkan isi password anda terlebih dahulu"
                     false
 
-                } else -> {
+                }
+                else -> {
                     tilEmail.error = null
                     tilPassword.error = null
                     true
@@ -121,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading(state: Boolean) {
-        if(state) {
+        if (state) {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE

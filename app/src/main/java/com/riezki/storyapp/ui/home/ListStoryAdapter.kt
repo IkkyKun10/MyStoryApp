@@ -2,6 +2,8 @@ package com.riezki.storyapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.paging.PagingSource
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +12,7 @@ import com.riezki.storyapp.databinding.ItemListStoryBinding
 import com.riezki.storyapp.model.local.ItemListStoryEntity
 
 class ListStoryAdapter(private val callback: StoryCallback) :
-    ListAdapter<ItemListStoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<ItemListStoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemListStoryEntity>() {
@@ -43,12 +45,10 @@ class ListStoryAdapter(private val callback: StoryCallback) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = currentList[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return currentList.size
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     interface StoryCallback {

@@ -1,6 +1,7 @@
 package com.riezki.storyapp.model.response
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -36,7 +37,7 @@ data class ListStoryItemResponse(
 	val lon: Double? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("lat")
 	val lat: Double? = null

@@ -4,12 +4,14 @@ import android.content.Context
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
 import com.riezki.storyapp.network.api.ApiConfig
+import com.riezki.storyapp.paging.database.StoryDatabase
 import com.riezki.storyapp.ui.authenticasion.login.dataStore
 
 object Injection {
-    fun provideRepository(): StoryRepository {
+    fun provideRepository(context: Context): StoryRepository {
         val apiService = ApiConfig().getApiService()
-        return StoryRepository.getInstance(apiService)
+        val database = StoryDatabase.getDatabase(context)
+        return StoryRepository.getInstance(apiService, database)
     }
 
     fun provideDataStore(context: Context): DataStorePreference {

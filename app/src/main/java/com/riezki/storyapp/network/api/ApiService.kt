@@ -13,18 +13,18 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    fun loginUser(
+    suspend fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
 
     @POST("register")
-    fun registerUser(
+    suspend fun registerUser(
         @Body param: Map<String, String>
     ): RegisterResponse
 
     @GET("stories")
-    fun getListUser(
+    suspend fun getListUser(
         @Header("Authorization") token: String,
         @Query("page") page: Int? = 1,
         @Query("size") size: Int? = 10

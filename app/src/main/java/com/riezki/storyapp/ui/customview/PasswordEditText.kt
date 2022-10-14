@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 import com.riezki.storyapp.R
 
 class PasswordEditText : AppCompatEditText {
@@ -28,9 +29,14 @@ class PasswordEditText : AppCompatEditText {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(context, R.drawable.ic_password), null, null, null
+        )
+        compoundDrawablePadding = 40
     }
 
     private fun init() {
+
         addTextChangedListener(object  : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 

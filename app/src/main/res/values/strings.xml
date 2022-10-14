@@ -34,4 +34,5 @@
     <string name="update_stories">Update Stories</string>
     <string name="btn_ok">OK</string>
     <string name="upload_message_succed">Gambar Berhasil di Upload ke Server</string>
+    <string name="retry">Coba Lagi</string>
 </resources>

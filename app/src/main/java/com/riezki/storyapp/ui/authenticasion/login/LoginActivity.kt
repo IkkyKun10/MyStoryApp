@@ -55,19 +55,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getLogin() {
-        showLoading(true)
+        //showLoading(true)
         viewModel.getLoginUser(
             binding.tilEmail.text.toString(),
             binding.tilPassword.text.toString()
-        ).observe(this) {
-            showLoading(false)
+        ).observe(this@LoginActivity) {
+            //showLoading(false)
             when (it) {
                 is Resource.Loading -> {
-
+                    showLoading(true)
                 }
 
                 is Resource.Success -> {
-
+                    showLoading(false)
                     viewModel.saveTokenDataStore(DataStorePreference(dataStore), it.data?.token ?: "")
                     viewModel.saveLoginStateDataStore(DataStorePreference(dataStore))
                     Intent(this, ListStoryActivity::class.java).also { intent ->
@@ -77,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is Resource.Error -> {
+                    showLoading(false)
                     Toast.makeText(this, "Login gagal, Silahkan coba lagi", Toast.LENGTH_SHORT).show()
                 }
 
@@ -116,8 +117,10 @@ class LoginActivity : AppCompatActivity() {
         val tvNameActivity = ObjectAnimator.ofFloat(binding.tvNameApp, View.ALPHA, 1f).setDuration(100)
         val imgAccount = ObjectAnimator.ofFloat(binding.imgAccount, View.ALPHA, 1f).setDuration(100)
         val tvEmail = ObjectAnimator.ofFloat(binding.tvEmail, View.ALPHA, 1f).setDuration(100)
+        val fieldEmail = ObjectAnimator.ofFloat(binding.fieldLayoutEmail, View.ALPHA, 1f).setDuration(100)
         val edtEmail = ObjectAnimator.ofFloat(binding.tilEmail, View.ALPHA, 1f).setDuration(100)
         val tvPassword = ObjectAnimator.ofFloat(binding.tvPassword, View.ALPHA, 1f).setDuration(100)
+        val fieldPwd = ObjectAnimator.ofFloat(binding.fieldLayoutPwd, View.ALPHA, 1f).setDuration(100)
         val edtPassword = ObjectAnimator.ofFloat(binding.tilPassword, View.ALPHA, 1f).setDuration(100)
         val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(100)
         val tvRegister = ObjectAnimator.ofFloat(binding.register, View.ALPHA, 1f).setDuration(100)
@@ -127,7 +130,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         AnimatorSet().apply {
-            playSequentially(together, tvEmail, edtEmail, tvPassword, edtPassword, btnLogin, tvRegister)
+            playSequentially(
+                together, tvEmail, fieldEmail, edtEmail, tvPassword, fieldPwd, edtPassword, btnLogin, tvRegister
+            )
             start()
         }
     }

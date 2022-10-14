@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 import com.riezki.storyapp.R
 
 class EmailEditText : AppCompatEditText {
@@ -26,6 +27,10 @@ class EmailEditText : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(context, R.drawable.ic_email), null, null, null
+        )
+        compoundDrawablePadding = 40
     }
 
     private fun init() {
