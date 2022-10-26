@@ -31,6 +31,14 @@ interface ApiService {
     ): ListStoryResponse
 
     @GET("stories")
+    suspend fun getMapStory(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int?,
+        @Query("size") size: Int? = 10,
+        @Query("location") location: Int? = 1
+    ) : ListStoryResponse
+
+    @GET("stories")
     fun getListImageUser(
         @Header("Authorization") token: String,
         @Query("page") page: Int? = 1,
@@ -39,9 +47,9 @@ interface ApiService {
 
     @Multipart
     @POST("stories")
-    fun uploadImage(
+    suspend fun uploadImage(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
-    ): Call<AddNewStoryResponse>
+    ): AddNewStoryResponse
 }

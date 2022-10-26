@@ -7,24 +7,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.riezki.storyapp.model.local.NewStoryResult
+import com.riezki.storyapp.model.local.AddNewStoryResultEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.model.response.AddNewStoryResponse
+import com.riezki.storyapp.network.StoryRepository
 import com.riezki.storyapp.network.api.ApiConfig
+import com.riezki.storyapp.utils.Resource
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 
-class AddStoryViewModel(dataStore: DataStorePreference) : ViewModel() {
+class AddStoryViewModel(
+    private val dataStore: DataStorePreference,
+    private val storyRepository: StoryRepository
+) : ViewModel() {
 
     val userTokenFromDataStore = dataStore.readTokenFromDataStore.asLiveData()
 
-    private var result = MutableLiveData<NewStoryResult>()
+    //private var result = MutableLiveData<AddNewStoryResultEntity>()
 
     fun setUploadImage(context: Context, token: String, body: MultipartBody.Part, description: RequestBody)
-            : LiveData<NewStoryResult> {
+            : LiveData<Resource<AddNewStoryResultEntity>> {
+        return storyRepository.setUploadImage(context, token, body, description)
+    }
 
+    /*
         val client = ApiConfig().getApiService()
 
         client.uploadImage(token, body, description).enqueue(object : retrofit2.Callback<AddNewStoryResponse> {
@@ -33,7 +41,7 @@ class AddStoryViewModel(dataStore: DataStorePreference) : ViewModel() {
 
                 if (response.isSuccessful) {
                     if (responseBody != null && !responseBody.error!!) {
-                        result.value = NewStoryResult(message = responseBody.message)
+                        result.value = AddNewStoryResultEntity(message = responseBody.message)
                         Toast.makeText(context, responseBody.message, Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -50,5 +58,6 @@ class AddStoryViewModel(dataStore: DataStorePreference) : ViewModel() {
 
         return  result
     }
+    */
 
 }

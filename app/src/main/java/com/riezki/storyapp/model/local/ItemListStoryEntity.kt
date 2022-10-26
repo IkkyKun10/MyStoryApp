@@ -25,5 +25,11 @@ data class ItemListStoryEntity(
 
     @PrimaryKey
     @field:SerializedName("id_user")
-    val idUser: String
+    val idUser: String,
+
+    @field:SerializedName("latitude")
+    val lat: Double? = null,
+
+    @field:SerializedName("longitude")
+    val lon: Double? = null
 ) : Parcelable

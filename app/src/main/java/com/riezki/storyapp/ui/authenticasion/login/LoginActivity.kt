@@ -16,7 +16,7 @@ import com.riezki.storyapp.databinding.ActivityLoginBinding
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.model.preference.PREFERENCE_NAME
 import com.riezki.storyapp.ui.authenticasion.register.RegisterActivity
-import com.riezki.storyapp.ui.home.ListStoryActivity
+import com.riezki.storyapp.ui.home.HomeActivity
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.ViewModelFactory
 
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(false)
                     viewModel.saveTokenDataStore(DataStorePreference(dataStore), it.data?.token ?: "")
                     viewModel.saveLoginStateDataStore(DataStorePreference(dataStore))
-                    Intent(this, ListStoryActivity::class.java).also { intent ->
+                    Intent(this, HomeActivity::class.java).also { intent ->
                         startActivity(intent)
                         finish()
                     }

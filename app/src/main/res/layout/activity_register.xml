@@ -1,187 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.authenticasion.register.RegisterActivity">
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@drawable/up_bg_screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@drawable/up_bg_screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back"
-        app:useCompatPadding="true"
-        app:backgroundTint="@color/glossy"
-        android:contentDescription="@string/back" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
 
-    <TextView
-        android:id="@+id/tv_name_app"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:fontFamily="@font/bevan"
-        android:text="@string/daftar"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/margin_right"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toTopOf="@id/margin_top" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:contentDescription="@string/back"
+            app:backgroundTint="@color/glossy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:useCompatPadding="true" />
 
-    <ImageView
-        android:id="@+id/img_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:src="@drawable/lady1_login"
-        android:layout_marginTop="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name_app"
-        android:contentDescription="@string/example_account_user"/>
+        <TextView
+            android:id="@+id/tv_name_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:fontFamily="@font/bevan"
+            android:text="@string/daftar"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toTopOf="@id/margin_top" />
 
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="25dp"
-        android:text="@string/username"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@+id/img_account" />
+        <ImageView
+            android:id="@+id/img_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:alpha="0"
+            android:contentDescription="@string/example_account_user"
+            android:src="@drawable/lady1_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_app" />
 
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/til_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="8dp"
-        android:hint="@string/write_username"
-        android:textColorHint="@color/dark_grey"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@id/margin_right"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@id/tv_username"/>
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="25dp"
-        android:text="@string/email"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@+id/til_username" />
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:alpha="0"
+            android:text="@string/username"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@+id/img_account" />
 
 
-    <com.riezki.storyapp.ui.customview.EmailEditText
-        android:id="@+id/til_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="8dp"
-        android:hint="@string/write_email"
-        android:textColorHint="@color/dark_grey"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@id/margin_right"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@id/tv_email"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/til_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:hint="@string/write_username"
+            android:inputType="text"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_username" />
 
-    <TextView
-        android:id="@+id/tv_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="14dp"
-        android:text="@string/password"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@+id/til_email" />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:alpha="0"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@+id/til_username" />
 
-    <com.riezki.storyapp.ui.customview.PasswordEditText
-        android:id="@+id/til_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:layout_marginTop="8dp"
-        android:hint="@string/write_password"
-        android:textColorHint="@color/dark_grey"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/margin_right"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:alpha="0"
-        android:text="@string/daftar"
-        android:textAllCaps="false"
-        android:textColor="@color/midnight_blue"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:elevation="30dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
-        app:layout_constraintEnd_toEndOf="@id/margin_right"
-        app:layout_constraintStart_toStartOf="@id/margin_left"
-        app:layout_constraintTop_toBottomOf="@id/til_password" />
+        <com.riezki.storyapp.ui.customview.EmailEditText
+            android:id="@+id/til_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:hint="@string/write_email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progressBar"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:lottie_rawRes="@raw/loading_anim"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_speed="1.15"
-        android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:alpha="0"
+            android:text="@string/password"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@+id/til_email" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.riezki.storyapp.ui.customview.PasswordEditText
+            android:id="@+id/til_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:hint="@string/write_password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0"
+            android:text="@string/daftar"
+            android:textAllCaps="false"
+            android:textColor="@color/midnight_blue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:elevation="30dp"
+            app:layout_constraintEnd_toEndOf="@id/margin_right"
+            app:layout_constraintStart_toStartOf="@id/margin_left"
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progressBar"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/loading_anim"
+            app:lottie_speed="1.15" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

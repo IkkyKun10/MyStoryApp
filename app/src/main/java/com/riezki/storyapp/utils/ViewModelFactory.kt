@@ -10,6 +10,7 @@ import com.riezki.storyapp.ui.addstory.AddStoryViewModel
 import com.riezki.storyapp.ui.authenticasion.login.LoginViewModel
 import com.riezki.storyapp.ui.authenticasion.register.RegisterViewModel
 import com.riezki.storyapp.ui.home.ListStoryAppViewModel
+import com.riezki.storyapp.ui.maps.MapsViewModel
 import com.riezki.storyapp.ui.splash_screen.SplashScreenViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -30,10 +31,13 @@ class ViewModelFactory(
                 LoginViewModel(storyRepository) as T
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
-                AddStoryViewModel(dataStoreRepository) as T
+                AddStoryViewModel(dataStoreRepository, storyRepository) as T
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(storyRepository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(storyRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

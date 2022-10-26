@@ -4,54 +4,61 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.util.Pair
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import com.riezki.storyapp.R
-import com.riezki.storyapp.databinding.ActivityListStoryBinding
-import com.riezki.storyapp.databinding.ItemListStoryBinding
-import com.riezki.storyapp.model.local.ItemListStoryEntity
-import com.riezki.storyapp.model.preference.DataStorePreference
-import com.riezki.storyapp.paging.adapter.LoadingStateAdapter
-import com.riezki.storyapp.ui.addstory.AddStoryActivity
+import com.riezki.storyapp.databinding.ActivityHomeBinding
 import com.riezki.storyapp.ui.authenticasion.login.LoginActivity
-import com.riezki.storyapp.ui.authenticasion.login.dataStore
-import com.riezki.storyapp.ui.detail.DetailActivity
-import com.riezki.storyapp.utils.Resource
+import com.riezki.storyapp.ui.maps.MapsStoryFragment
 import com.riezki.storyapp.utils.ViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 
-class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
+class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityListStoryBinding
+    private lateinit var binding: ActivityHomeBinding
+
     private val viewModel: ListStoryAppViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
-    private lateinit var adapter: ListStoryAdapter
+
+    //private lateinit var adapter: ListStoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityListStoryBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.elevation = 0f
+
+        /*
         showListAdapter()
 
-        binding.fabAddStory.setOnClickListener {
-            Intent(this, AddStoryActivity::class.java).also {
-                startActivity(it)
-                finish()
+            binding.fabAddStory.setOnClickListener {
+                Intent(this, AddStoryActivity::class.java).also {
+                    startActivity(it)
+                    finish()
+                }
             }
-        }
 
-        getListDataServer()
+            getListDataServer()
+        */
+        replaceFragment(ListStoryFragment())
+        binding.bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> replaceFragment(ListStoryFragment())
+                R.id.maps -> replaceFragment(MapsStoryFragment())
+                else -> {}
+            }
+            true
+        }
     }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fm = supportFragmentManager
+        val fragmentTransaction = fm.beginTransaction()
+        fragmentTransaction.replace(binding.frameLayout.id, fragment)
+        fragmentTransaction.commit()
+    }
+/*
 
     private fun getListDataServer() {
         //showLoading(true)
@@ -111,6 +118,7 @@ class ListStoryActivity : AppCompatActivity(), ListStoryAdapter.StoryCallback {
             )
         startActivity(intent, optionCompat.toBundle())
     }
+*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)

@@ -6,10 +6,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.riezki.storyapp.R
-import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.ui.authenticasion.login.LoginActivity
-import com.riezki.storyapp.ui.authenticasion.login.dataStore
-import com.riezki.storyapp.ui.home.ListStoryActivity
+import com.riezki.storyapp.ui.home.HomeActivity
 import com.riezki.storyapp.utils.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 viewModel.readStateLogin.observe(this@SplashScreenActivity) { loginState ->
                     if (loginState) {
                         startActivity(
-                            Intent(this@SplashScreenActivity, ListStoryActivity::class.java)
+                            Intent(this@SplashScreenActivity, HomeActivity::class.java)
                         )
                         finish()
                     } else {

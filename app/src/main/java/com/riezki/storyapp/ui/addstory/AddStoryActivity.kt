@@ -19,13 +19,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.riezki.storyapp.databinding.ActivityAddStoryBinding
 import com.riezki.storyapp.databinding.PopupAddstoryBinding
-import com.riezki.storyapp.model.preference.DataStorePreference
-import com.riezki.storyapp.ui.authenticasion.login.dataStore
-import com.riezki.storyapp.ui.home.ListStoryActivity
-import com.riezki.storyapp.utils.ViewModelFactory
-import com.riezki.storyapp.utils.createCustomTempFile
-import com.riezki.storyapp.utils.reduceFileImage
-import com.riezki.storyapp.utils.uriToFile
+import com.riezki.storyapp.ui.home.HomeActivity
+import com.riezki.storyapp.utils.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -62,10 +57,12 @@ class AddStoryActivity : AppCompatActivity() {
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener { uploadImage() }
-        binding.fabBack.setOnClickListener { Intent(this, ListStoryActivity::class.java).also {
-            startActivity(it)
-            finish()
-        } }
+        binding.fabBack.setOnClickListener {
+            Intent(this, HomeActivity::class.java).also {
+                startActivity(it)
+                finish()
+            }
+        }
     }
 
     private fun showLoading(state: Boolean) {
@@ -96,7 +93,6 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        showLoading(true)
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
             val description = binding.inputDesc.text.toString().toRequestBody("text/plain".toMediaType())
@@ -110,26 +106,52 @@ class AddStoryActivity : AppCompatActivity() {
             viewModel.userTokenFromDataStore.observe(this) { tokenUser ->
                 token = tokenUser
 
-                viewModel.setUploadImage(this, "Bearer $token", imageMultipart, description).observe(this) { addStory ->
-                    showLoading(false)
-                    if (addStory.error == true) {
-                        Toast.makeText(this, "Gambar Gagal diupload, terjadi kesalahan!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val view = PopupAddstoryBinding.inflate(layoutInflater)
-                        val builder = AlertDialog.Builder(this)
-                            .setView(view.root)
+                viewModel.setUploadImage(
+                    this,
+                    "Bearer $token",
+                    imageMultipart,
+                    description
+                ).observe(this) { addStory ->
+                    when (addStory) {
+                        is Resource.Loading -> {
+                            showLoading(true)
+                        }
 
-                        val dialog = builder.create()
-                        dialog.show()
-                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-                        dialog.setCancelable(false)
+                        is Resource.Success -> {
+                            showLoading(false)
+                            if (addStory.data?.error == true) {
+                                Toast.makeText(
+                                    this,
+                                    "Gambar Gagal diupload, terjadi kesalahan!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                val view = PopupAddstoryBinding.inflate(layoutInflater)
+                                val builder = AlertDialog.Builder(this)
+                                    .setView(view.root)
 
-                        view.btnOk.setOnClickListener {
-                            Intent(this, ListStoryActivity::class.java).also {
-                                startActivity(it)
-                                finish()
+                                val dialog = builder.create()
+                                dialog.show()
+                                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                                dialog.setCancelable(false)
+
+                                view.btnOk.setOnClickListener {
+                                    Intent(this, HomeActivity::class.java).also {
+                                        startActivity(it)
+                                        finish()
+                                    }
+                                    dialog.dismiss()
+                                }
                             }
-                            dialog.dismiss()
+                        }
+
+                        is Resource.Error -> {
+                            showLoading(false)
+                            Toast.makeText(
+                                this,
+                                "Gambar Gagal diupload, terjadi kesalahan!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -137,7 +159,11 @@ class AddStoryActivity : AppCompatActivity() {
 
         } else {
             showLoading(false)
-            Toast.makeText(this, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Silakan masukkan berkas gambar terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

@@ -1,23 +1,10 @@
 package com.riezki.storyapp.ui.authenticasion.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.riezki.storyapp.model.local.LoginResultEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
-import com.riezki.storyapp.model.response.LoginResponse
 import com.riezki.storyapp.network.StoryRepository
-import com.riezki.storyapp.network.api.ApiConfig
-import com.riezki.storyapp.utils.ErrorCode
-import com.riezki.storyapp.utils.Resource
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.HttpException
-import retrofit2.Response
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 class LoginViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
