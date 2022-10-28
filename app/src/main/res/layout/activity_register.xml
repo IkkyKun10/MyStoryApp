@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -89,19 +90,34 @@
             app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintTop_toBottomOf="@+id/img_account" />
 
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0"
-            android:hint="@string/write_username"
-            android:inputType="text"
-            android:textColorHint="@color/dark_grey"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
+            app:boxStrokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+            app:layout_constraintTop_toBottomOf="@id/tv_username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/write_username"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/ic_username"
+                android:drawablePadding="14dp"
+                android:inputType="text"
+                android:textColorHint="@color/dark_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_email"
@@ -116,19 +132,32 @@
             app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintTop_toBottomOf="@+id/til_username" />
 
-
-        <com.riezki.storyapp.ui.customview.EmailEditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0"
-            android:hint="@string/write_email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/dark_grey"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
+            app:boxStrokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+            app:layout_constraintTop_toBottomOf="@id/tv_email">
+
+            <com.riezki.storyapp.ui.customview.EmailEditText
+                android:id="@+id/tie_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:hint="@string/write_email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/dark_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_password"
@@ -143,18 +172,33 @@
             app:layout_constraintStart_toStartOf="@id/margin_left"
             app:layout_constraintTop_toBottomOf="@+id/til_email" />
 
-        <com.riezki.storyapp.ui.customview.PasswordEditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0"
-            android:hint="@string/write_password"
-            android:inputType="textPassword"
-            android:textColorHint="@color/dark_grey"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
+            app:boxStrokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="@id/margin_right"
             app:layout_constraintStart_toStartOf="@id/margin_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_password" />
+            app:layout_constraintTop_toBottomOf="@id/tv_password" >
+
+            <com.riezki.storyapp.ui.customview.PasswordEditText
+                android:id="@+id/tie_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:hint="@string/write_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/dark_grey"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_register"

@@ -21,26 +21,12 @@ class HomeActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
-    //private lateinit var adapter: ListStoryAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.elevation = 0f
 
-        /*
-        showListAdapter()
-
-            binding.fabAddStory.setOnClickListener {
-                Intent(this, AddStoryActivity::class.java).also {
-                    startActivity(it)
-                    finish()
-                }
-            }
-
-            getListDataServer()
-        */
         replaceFragment(ListStoryFragment())
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -58,67 +44,6 @@ class HomeActivity : AppCompatActivity() {
         fragmentTransaction.replace(binding.frameLayout.id, fragment)
         fragmentTransaction.commit()
     }
-/*
-
-    private fun getListDataServer() {
-        //showLoading(true)
-        var token = ""
-        viewModel.userTokenFromDataStore.observe(this) {
-            token = it
-
-            viewModel.getListStory("Bearer $token").observe(this@ListStoryActivity) { list ->
-                //showLoading(false)
-                if (list != null) {
-                    when (list) {
-                        is Resource.Loading -> {
-                            showLoading(true)
-                        }
-
-                        is Resource.Success -> {
-                            showLoading(false)
-                            list.data?.let { data ->
-                                adapter.submitData(lifecycle, data)
-                            }
-                        }
-
-                        is Resource.Error -> {
-                            showLoading(false)
-                            Toast.makeText(this, "List Gagal ditampilkan", Toast.LENGTH_SHORT).show()
-                            binding.errorPage.visibility = View.VISIBLE
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showListAdapter() {
-        adapter = ListStoryAdapter(this)
-        binding.rvListStory.layoutManager = LinearLayoutManager(this)
-        binding.rvListStory.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter { adapter.retry() }
-        )
-        binding.rvListStory.setHasFixedSize(true)
-    }
-
-    private fun showLoading(state: Boolean) {
-        if (state) binding.progressBar.visibility = View.VISIBLE else View.GONE
-    }
-
-    override fun onItemClick(itemListStory: ItemListStoryEntity) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_DETAIL, itemListStory)
-        val binding: ItemListStoryBinding = ItemListStoryBinding.inflate(layoutInflater)
-        val optionCompat: ActivityOptionsCompat =
-            ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
-                Pair(binding.tvItemName, "username"),
-                Pair(binding.imgItemStory, "image_story")
-            )
-        startActivity(intent, optionCompat.toBundle())
-    }
-*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)

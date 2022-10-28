@@ -1,6 +1,7 @@
 package com.riezki.storyapp.ui.addstory
 
 import android.content.Context
+import android.location.Location
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -27,9 +28,14 @@ class AddStoryViewModel(
 
     //private var result = MutableLiveData<AddNewStoryResultEntity>()
 
-    fun setUploadImage(context: Context, token: String, body: MultipartBody.Part, description: RequestBody)
-            : LiveData<Resource<AddNewStoryResultEntity>> {
-        return storyRepository.setUploadImage(context, token, body, description)
+    fun setUploadImage(
+        context: Context,
+        token: String,
+        body: MultipartBody.Part,
+        description: RequestBody,
+        location: Location?
+    ): LiveData<Resource<AddNewStoryResultEntity>> {
+        return storyRepository.setUploadImage(context, token, body, description, location)
     }
 
     /*

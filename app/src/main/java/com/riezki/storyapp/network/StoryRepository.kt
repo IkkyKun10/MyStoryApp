@@ -1,6 +1,7 @@
 package com.riezki.storyapp.network
 
 import android.content.Context
+import android.location.Location
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -16,8 +17,10 @@ import com.riezki.storyapp.paging.data.StoryRemoteMediator
 import com.riezki.storyapp.paging.database.StoryDatabase
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.wrapEspressoIdlingResource
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class StoryRepository(private val apiService: ApiService, private val database: StoryDatabase) {
 
@@ -102,13 +105,22 @@ class StoryRepository(private val apiService: ApiService, private val database: 
         context: Context,
         token: String,
         body: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        location: Location?
     ): LiveData<Resource<AddNewStoryResultEntity>> {
         return liveData {
             emit(Resource.Loading(null))
             wrapEspressoIdlingResource {
                 try {
-                    val response = apiService.uploadImage(token, body, description)
+                    val paramsLoc = mutableMapOf<String, RequestBody>().apply {
+                        put("description", description)
+                        val lat = (location?.latitude ?: 0.0).toString().toRequestBody("text/plain".toMediaType())
+                        val lng = (location?.longitude ?: 0.0).toString().toRequestBody("text/plain".toMediaType())
+                        put("lat", lat)
+                        put("lon", lng)
+                    }
+
+                    val response = apiService.uploadImage(token, body, HashMap(paramsLoc))
                     if (!response.error!!) {
                         val newAddStory = AddNewStoryResultEntity(
                             message = response.message
@@ -136,15 +148,13 @@ class StoryRepository(private val apiService: ApiService, private val database: 
     fun getMapStory(
         context: Context,
         token: String,
-        page: Int,
-        size: Int,
-        location: Int
+        page: Int
     ): LiveData<Resource<List<ItemListStoryEntity>?>> {
         return liveData {
             emit(Resource.Loading(null))
             wrapEspressoIdlingResource {
                 try {
-                    val response = apiService.getMapStory(token, page, size, location)
+                    val response = apiService.getMapStory(token, page)
                     val listItem = response.listStory
                     if (response.error == true) {
                         Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()

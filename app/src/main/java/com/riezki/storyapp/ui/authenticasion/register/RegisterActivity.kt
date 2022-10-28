@@ -44,9 +44,9 @@ class RegisterActivity : AppCompatActivity() {
         showLoading(true)
 
         viewModel.getRegisterUser(
-            binding.tilUsername.text.toString(),
-            binding.tilEmail.text.toString(),
-            binding.tilPassword.text.toString()
+            binding.tieUsername.text.toString(),
+            binding.tieEmail.text.toString(),
+            binding.tiePassword.text.toString()
         ).observe(this) {
             showLoading(false)
             when (it) {
@@ -76,19 +76,25 @@ class RegisterActivity : AppCompatActivity() {
     private fun validateLogin(): Boolean {
         with(binding) {
             return when {
-                tilEmail.isError || tilEmail.text?.isEmpty() == true -> {
-                    tilEmail.error = "Silahkan isi email anda terlebih dahulu"
+                tieUsername.text?.isEmpty() == true -> {
+                    tieUsername.error = "Silahakan isi Username terlebih dahulu"
                     false
                 }
 
-                tilPassword.isError || tilPassword.text?.isEmpty() == true -> {
-                    tilPassword.error = "Silahkan isi password anda terlebih dahulu"
+                tieEmail.isError || tieEmail.text?.isEmpty() == true -> {
+                    tieEmail.error = "Silahkan isi email anda terlebih dahulu"
+                    false
+                }
+
+                tiePassword.isError || tiePassword.text?.isEmpty() == true -> {
+                    tiePassword.error = "Silahkan isi password anda terlebih dahulu"
                     false
 
                 }
                 else -> {
-                    tilEmail.error = null
-                    tilPassword.error = null
+                    tieUsername.error = null
+                    tieEmail.error = null
+                    tiePassword.error = null
                     true
                 }
             }

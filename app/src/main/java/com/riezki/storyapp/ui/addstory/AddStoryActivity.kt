@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.riezki.storyapp.databinding.ActivityAddStoryBinding
 import com.riezki.storyapp.databinding.PopupAddstoryBinding
 import com.riezki.storyapp.ui.home.HomeActivity
@@ -38,11 +43,15 @@ class AddStoryActivity : AppCompatActivity() {
     private lateinit var currentPhotoPath: String
     private var getFile: File? = null
     private lateinit var token: String
+    private var location: Location? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         supportActionBar?.elevation = 0f
 
@@ -54,9 +63,13 @@ class AddStoryActivity : AppCompatActivity() {
             )
         }
 
+        binding.btnGetLoc.setOnClickListener {
+            binding.btnGetLoc.isEnabled = false
+            getMyLastLoc()
+        }
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
-        binding.uploadButton.setOnClickListener { uploadImage() }
+        binding.uploadButton.setOnClickListener { uploadImage(location) }
         binding.fabBack.setOnClickListener {
             Intent(this, HomeActivity::class.java).also {
                 startActivity(it)
@@ -67,6 +80,57 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun showLoading(state: Boolean) {
         if (state) binding.progressBar.visibility = View.VISIBLE else View.GONE
+    }
+
+    private fun checkPermission(permission: String): Boolean {
+        return this.let {
+            ContextCompat.checkSelfPermission(
+                it, permission
+            )
+        } == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun getMyLastLoc() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            && checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ) {
+            fusedLocationClient.getCurrentLocation(
+                PRIORITY_HIGH_ACCURACY,
+                CancellationTokenSource().token
+            ).addOnSuccessListener { loc: Location? ->
+                if (loc != null) {
+                    location = loc
+                    uploadImage(location)
+                } else {
+                    binding.btnGetLoc.isEnabled = true
+                }
+            }
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                getMyLastLoc()
+            }
+
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                getMyLastLoc()
+            }
+
+            else -> {
+                binding.btnGetLoc.isEnabled = true
+            }
+        }
     }
 
     private fun startTakePhoto() {
@@ -92,10 +156,11 @@ class AddStoryActivity : AppCompatActivity() {
         launcherIntentGallery.launch(chooser)
     }
 
-    private fun uploadImage() {
+    private fun uploadImage(location: Location?) {
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
             val description = binding.inputDesc.text.toString().toRequestBody("text/plain".toMediaType())
+
             val requestImageFile = file.asRequestBody("image/jpg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
@@ -110,7 +175,8 @@ class AddStoryActivity : AppCompatActivity() {
                     this,
                     "Bearer $token",
                     imageMultipart,
-                    description
+                    description,
+                    location
                 ).observe(this) { addStory ->
                     when (addStory) {
                         is Resource.Loading -> {
@@ -216,6 +282,22 @@ class AddStoryActivity : AppCompatActivity() {
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
+
+    /*
+
+    private fun getMyLocation(mMap: GoogleMap) {
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mMap.isMyLocationEnabled = true
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+ */
 
 
     companion object {

@@ -37,7 +37,7 @@ class ViewModelFactory(
                 RegisterViewModel(storyRepository) as T
             }
             modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
-                MapsViewModel(storyRepository) as T
+                MapsViewModel(dataStoreRepository, storyRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

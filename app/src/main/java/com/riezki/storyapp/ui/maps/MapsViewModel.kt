@@ -2,11 +2,18 @@ package com.riezki.storyapp.ui.maps
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
 
-class MapsViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+class MapsViewModel(
+    dataStore: DataStorePreference,
+    private val storyRepository: StoryRepository
+    ) : ViewModel() {
 
-    fun getListMap(context: Context, token: String, page: Int = 1, size: Int, location: Int) =
-        storyRepository.getMapStory(context, token, page, size, location)
+    val userToken = dataStore.readTokenFromDataStore.asLiveData()
+
+    fun getListMap(context: Context, token: String, page: Int = 1) =
+        storyRepository.getMapStory(context, token, page)
 
 }
