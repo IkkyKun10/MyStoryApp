@@ -15,7 +15,7 @@ class ListStoryAdapter(private val callback: StoryCallback) :
     PagingDataAdapter<ItemListStoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemListStoryEntity>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemListStoryEntity>() {
             override fun areItemsTheSame(oldItem: ItemListStoryEntity, newItem: ItemListStoryEntity): Boolean =
                 oldItem.idUser == newItem.idUser
 

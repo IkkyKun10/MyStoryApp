@@ -24,7 +24,9 @@ class AddStoryViewModel(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
 
-    val userTokenFromDataStore = dataStore.readTokenFromDataStore.asLiveData()
+    val userTokenFromDataStore by lazy {
+        dataStore.readTokenFromDataStore.asLiveData()
+    }
 
     //private var result = MutableLiveData<AddNewStoryResultEntity>()
 

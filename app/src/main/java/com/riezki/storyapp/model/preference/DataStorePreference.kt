@@ -64,6 +64,7 @@ class DataStorePreference(private val dataStore: DataStore<Preferences>) {
     suspend fun logoutFromDataStore() {
         dataStore.edit {
             it.clear()
+            //it[PreferenceKeys.loginStatePreferenceKey] = false
         }
     }
 

@@ -11,7 +11,9 @@ class MapsViewModel(
     private val storyRepository: StoryRepository
     ) : ViewModel() {
 
-    val userToken = dataStore.readTokenFromDataStore.asLiveData()
+    val userToken by lazy {
+        dataStore.readTokenFromDataStore.asLiveData()
+    }
 
     fun getListMap(context: Context, token: String, page: Int = 1) =
         storyRepository.getMapStory(context, token, page)

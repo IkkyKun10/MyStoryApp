@@ -1,0 +1,72 @@
+Skenario Pengujian
+
+1. Skenario testing LoginViewModelTest
+    a. ketika berhasil memuat data login
+        - Memastikan data tidak null
+        - Memastikan mengembalikan Actual Resource.Success
+
+    b. Ketika gagal memuat data login
+        - memastikan mengembalikan Resource.Error
+
+2. Skenario testing RegisterViewModelTest
+    a. Ketika berhasil memuat data register
+        - Memastikan data tidak null
+        - Memastikan mengembalikan Actual Resource.Success
+
+    b. Ketika gagal memuat data register
+        - Memastikan mengembalikan Resource.Error
+
+3. Skenario testing AddStoryViewModelTest
+    a. Ketika berhasil memuat data register
+        - Memastikan data tidak null
+        - Memastikan mengembalikan Actual Resource.Success
+
+    b. Ketika gagal memuat data AddStory
+        - Memastikan mengembalikan Resource.Error
+
+4. Skenario testing ListStoryAppViewModelTest
+    a. Ketika berhasil memuat data list Story
+        - Memastikan data tidak null
+        - Memastikan jumlah data sesuai dengan yang diharapkan.
+
+    b. Ketika gagal memuat data AddStory
+        - Memastikan mengembalikan Resource.Error
+
+5. Skenario testing MapsViewModelTest
+    a. Ketika berhasil memuat data list Story maps
+        - Memastikan data tidak null
+        - Memastikan jumlah data sesuai dengan yang diharapkan.
+
+    b. Ketika gagal memuat data maps
+        - Memastikan mengembalikan Resource.Error
+
+6. Skenario testing StoryRepositoryTest
+    a. fun `when login success`
+        * Ketika berhasil memuat data login
+            - Memastikan data tidak null
+            - Memastikan mengembalikan data yang sesuai
+
+    b. fun `when register success`
+        * Ketika berhasil memuat data register
+            - Memastikan data tidak null
+            - Memastikan mengembalikan data yang sesuai
+
+    c. fun `when get map success`
+        * Ketika berhasil memuat data list map
+            - Memastikan data tidak null
+            - Memastikan mengembalikan data yang sesuai jumlahnya
+
+    d. fun `when get story success`
+        * Ketika berhasil memuat data list map
+            - Memastikan data tidak null
+            - Memastikan mengembalikan data yang sesuai jumlahnya
+
+    e. fun `when upload image success`
+        * Ketika berhasil memuat data list map
+            - Memastikan data tidak null
+            - Memastikan mengembalikan data yang sesuai
+
+7. Skenario testing StoryRemoteMediatorTest
+        a. Ketika berhasil memuat data paging
+            - Memastikan fungsi load mengembalikan RemoteMediator.MediatorResult.Success.
+            - Memastikan jumlah endOfPaginationReached bernilai false.

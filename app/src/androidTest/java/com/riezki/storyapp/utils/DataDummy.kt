@@ -44,22 +44,6 @@ object DataDummy {
         return listStory
     }
 
-    fun generateDummyPagedStoryRepo() : List<ItemListStoryEntity> {
-        val listStory: MutableList<ItemListStoryEntity> = arrayListOf()
-
-        for (i in 0..9) {
-            val story = ItemListStoryEntity(
-                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
-                name = "Dimas",
-                description = "Lorem Ipsum",
-                idUser = "story-FvU4u0Vp2S3PMsFg"
-            )
-
-            listStory.add(story)
-        }
-        return listStory
-    }
-
     fun generateLoginStory() : LoginResultEntity {
         val login = LoginResultEntity(
             name = "kiki",

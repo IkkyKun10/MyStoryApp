@@ -18,7 +18,9 @@ class ListStoryAppViewModel(
         private const val TAG = "ListStoryViewModel"
     }
 
-    val userTokenFromDataStore = dataStore.readTokenFromDataStore.asLiveData()
+    val userTokenFromDataStore by lazy {
+        dataStore.readTokenFromDataStore.asLiveData()
+    }
 
     //private var result = MutableLiveData<Resource<List<ItemListStoryEntity>>>()
 
