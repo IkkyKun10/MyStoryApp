@@ -40,6 +40,12 @@ Skenario Pengujian
     b. Ketika gagal memuat data maps
         - Memastikan mengembalikan Resource.Error
 
+6. Skenario Testing SplashScreenViewModelTest
+    a. Ketika berhasil mengembalikan nilai true
+        - memastikan fungsi yang dipanggil adalah preference.readStateLogin
+        - memastikan actual mengembalikan nilai true
+        - memastikan bahwa mengembalikan data yang sesuai
+
 6. Skenario testing StoryRepositoryTest
     a. fun `when login success`
         * Ketika berhasil memuat data login
