@@ -59,7 +59,7 @@ Skenario Pengujian
     d. fun `when get story success`
         * Ketika berhasil memuat data list map
             - Memastikan data tidak null
-            - Memastikan mengembalikan data yang sesuai jumlahnya
+            - Memastikan actual mengembalikan Resource.Success
 
     e. fun `when upload image success`
         * Ketika berhasil memuat data list map

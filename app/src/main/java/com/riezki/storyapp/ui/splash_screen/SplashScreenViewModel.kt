@@ -6,5 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.riezki.storyapp.model.preference.DataStorePreference
 
 class SplashScreenViewModel(dataStorePreference: DataStorePreference) : ViewModel() {
-    val readStateLogin: LiveData<Boolean> = dataStorePreference.readLoginStateFromDataStore.asLiveData()
+    val readStateLogin: LiveData<Boolean> by lazy {
+        dataStorePreference.readLoginStateFromDataStore.asLiveData()
+    }
 }

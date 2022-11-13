@@ -1,71 +1,8 @@
 package com.riezki.storyapp.utils
 
-import com.riezki.storyapp.model.local.AddNewStoryResultEntity
-import com.riezki.storyapp.model.local.ItemListStoryEntity
-import com.riezki.storyapp.model.local.LoginResultEntity
-import com.riezki.storyapp.model.local.RegisterResultEntity
 import com.riezki.storyapp.model.response.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 object DataDummy {
-    fun generateDummyStory() : List<ItemListStoryEntity> {
-        val listStory = ArrayList<ItemListStoryEntity>()
-
-        for (i in 0..10) {
-            val story = ItemListStoryEntity(
-                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
-                name = "Dimas",
-                lat = -10.212,
-                lon =  -16.002,
-                description = "Lorem Ipsum",
-                idUser = "story-FvU4u0Vp2S3PMsFg"
-            )
-
-            listStory.add(story)
-        }
-        return listStory
-    }
-
-    fun generateDummyPagedStory() : List<ItemListStoryEntity> {
-        val listStory: MutableList<ItemListStoryEntity> = arrayListOf()
-
-        for (i in 0..100) {
-            val story = ItemListStoryEntity(
-                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
-                name = "Dimas",
-                description = "Lorem Ipsum",
-                idUser = "story-FvU4u0Vp2S3PMsFg"
-            )
-
-            listStory.add(story)
-        }
-        return listStory
-    }
-
-    fun generateLoginStory() : LoginResultEntity {
-        val login = LoginResultEntity(
-            name = "kiki",
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWRlX29wd1dmN0s4QVhNSTkiLCJpYXQiOjE2NjcwNDYxMzN9._TmFRjqq3BL8R--c1mIDTB2UwaJfFDCv_kt8lxNfnMU",
-            idUser = "story-FvU4u0Vp2S3PMsFg"
-        )
-        return login
-    }
-
-    fun generateRegisterStory() : RegisterResultEntity {
-        return RegisterResultEntity(
-            error = false,
-            message = "User Created"
-        )
-    }
-
-    fun generateAddNewStory(): AddNewStoryResultEntity {
-        return AddNewStoryResultEntity(
-            error = false,
-            message = "success"
-        )
-    }
 
     fun generateDummyPagedStoryResponse(page: Int, size: Int) : List<ListStoryItemResponse> {
         val listStory: MutableList<ListStoryItemResponse> = arrayListOf()

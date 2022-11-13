@@ -5,14 +5,13 @@ import com.riezki.storyapp.model.response.ListStoryResponse
 import com.riezki.storyapp.model.response.LoginResponse
 import com.riezki.storyapp.model.response.RegisterResponse
 import com.riezki.storyapp.network.api.ApiService
-import com.riezki.storyapp.utils.DataDummy
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 
 class FakeApiService : ApiService {
     private val dummyListStoryPaged = DataDummy.generateDummyPagedStoryResponse(1, 10)
-    private val dummyImageStory = DataDummy.generateImageResponse()
+
     private val dummyLoginResponse = DataDummy.generateLoginStoryResponse()
     private val dummyRegister = DataDummy.generateRegisterStoryResponse()
     private val dummyMapResponse = DataDummy.generateDummyStoryResponse()

@@ -9,12 +9,10 @@ import android.os.Build
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
-import androidx.lifecycle.asLiveData
 import com.riezki.storyapp.R
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.ui.authenticasion.login.dataStore
 import com.riezki.storyapp.ui.widget.StoryWidgetData.getStory
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 

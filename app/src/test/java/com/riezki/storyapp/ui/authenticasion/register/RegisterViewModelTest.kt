@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.riezki.storyapp.model.local.RegisterResultEntity
 import com.riezki.storyapp.network.StoryRepository
-import com.riezki.storyapp.ui.authenticasion.login.LoginViewModel
 import com.riezki.storyapp.utils.DataDummy
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.getOrAwaitValue

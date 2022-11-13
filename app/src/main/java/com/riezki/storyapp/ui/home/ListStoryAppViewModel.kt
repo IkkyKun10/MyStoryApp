@@ -1,8 +1,10 @@
 package com.riezki.storyapp.ui.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.riezki.storyapp.model.local.ItemListStoryEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
@@ -14,15 +16,9 @@ class ListStoryAppViewModel(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
 
-    companion object {
-        private const val TAG = "ListStoryViewModel"
-    }
-
     val userTokenFromDataStore by lazy {
         dataStore.readTokenFromDataStore.asLiveData()
     }
-
-    //private var result = MutableLiveData<Resource<List<ItemListStoryEntity>>>()
 
     fun getListStory(token: String) : LiveData<Resource<PagingData<ItemListStoryEntity>>> {
         return storyRepository.getStoryUser(token)

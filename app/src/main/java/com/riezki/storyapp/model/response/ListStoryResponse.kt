@@ -1,7 +1,6 @@
 package com.riezki.storyapp.model.response
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

@@ -12,5 +12,5 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         tools:srcCompat="."
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/widget_image" />
 </LinearLayout>

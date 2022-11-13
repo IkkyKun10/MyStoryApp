@@ -5,15 +5,12 @@ import com.riezki.storyapp.model.local.ItemListStoryEntity
 import com.riezki.storyapp.model.local.LoginResultEntity
 import com.riezki.storyapp.model.local.RegisterResultEntity
 import com.riezki.storyapp.model.response.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 object DataDummy {
     fun generateDummyStory() : List<ItemListStoryEntity> {
         val listStory = ArrayList<ItemListStoryEntity>()
 
-        for (i in 0..10) {
+        for (i in 1..10) {
             val story = ItemListStoryEntity(
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
                 name = "Dimas",
@@ -47,7 +44,7 @@ object DataDummy {
     fun generateDummyPagedStoryRepo() : List<ItemListStoryEntity> {
         val listStory: MutableList<ItemListStoryEntity> = arrayListOf()
 
-        for (i in 0..9) {
+        for (i in 1..100) {
             val story = ItemListStoryEntity(
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
                 name = "Dimas",
@@ -134,7 +131,7 @@ object DataDummy {
     fun generateDummyStoryResponse() : List<ListStoryItemResponse> {
         val listStory = ArrayList<ListStoryItemResponse>()
 
-        for (i in 0..10) {
+        for (i in 1..10) {
             val story = ListStoryItemResponse(
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
                 name = "Dimas",
@@ -149,20 +146,4 @@ object DataDummy {
         return listStory
     }
 
-    fun generateImageResponse() : ListStoryResponse {
-        val listStory = ArrayList<ListStoryItemResponse>()
-
-        for (i in 0..10) {
-            val story = ListStoryItemResponse(
-                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
-                name = "Dimas",
-                description = "Lorem Ipsum",
-                id = "story-FvU4u0Vp2S3PMsFg"
-            )
-
-            listStory.add(story)
-        }
-
-        return ListStoryResponse(listStory, false, "success")
-    }
 }

@@ -5,9 +5,6 @@ import com.riezki.storyapp.network.StoryRepository
 
 class RegisterViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
-    companion object {
-        private const val TAG = "register ViewModel"
-    }
 
     fun getRegisterUser(name: String, email: String, password: String) =
         storyRepository.getRegisterUser(name, email, password)

@@ -2,22 +2,15 @@ package com.riezki.storyapp.ui.addstory
 
 import android.content.Context
 import android.location.Location
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.riezki.storyapp.model.local.AddNewStoryResultEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
-import com.riezki.storyapp.model.response.AddNewStoryResponse
 import com.riezki.storyapp.network.StoryRepository
-import com.riezki.storyapp.network.api.ApiConfig
 import com.riezki.storyapp.utils.Resource
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Response
 
 class AddStoryViewModel(
     private val dataStore: DataStorePreference,

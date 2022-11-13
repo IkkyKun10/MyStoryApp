@@ -120,7 +120,7 @@ class StoryPagingSource : PagingSource<Int, LiveData<List<ItemListStoryEntity>>>
     }
 }
 
-val noopListCallback = object : ListUpdateCallback{
+private val noopListCallback = object : ListUpdateCallback{
     override fun onInserted(position: Int, count: Int) {}
 
     override fun onRemoved(position: Int, count: Int) {}

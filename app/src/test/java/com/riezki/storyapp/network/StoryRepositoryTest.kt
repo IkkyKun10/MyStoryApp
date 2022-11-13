@@ -1,23 +1,36 @@
 package com.riezki.storyapp.network
 
+import android.content.Context
+import android.location.Location
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.AsyncPagingDataDiffer
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.riezki.storyapp.data.FakeApiService
+import com.riezki.storyapp.model.local.ItemListStoryEntity
 import com.riezki.storyapp.network.api.ApiService
 import com.riezki.storyapp.paging.database.StoryDatabase
-import com.riezki.storyapp.utils.DataDummy
-import com.riezki.storyapp.utils.MainDispatcherRule
+import com.riezki.storyapp.ui.home.ListStoryAdapter
+import com.riezki.storyapp.utils.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.*
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import java.io.File
@@ -33,8 +46,11 @@ class StoryRepositoryTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
+    private lateinit var location: Location
+
     private lateinit var apiService: ApiService
     private lateinit var storyRepository: StoryRepository
+    private lateinit var context: Context
 
     private var mockDb: StoryDatabase = Room.inMemoryDatabaseBuilder(
         ApplicationProvider.getApplicationContext(),
@@ -43,44 +59,63 @@ class StoryRepositoryTest {
 
     @Before
     fun setUp() {
+        location = mock(Location::class.java)
+        context = mock(Context::class.java)
         apiService = FakeApiService()
         storyRepository = StoryRepository(apiService, mockDb)
     }
 
     @Test
     fun `when register success`() = runTest {
-        val expectedRegisterResponse = DataDummy.generateRegisterStory()
+        val expectedRegisterResponse = DataDummy.generateRegisterStoryResponse()
         val params = mutableMapOf<String, String>()
         params["name"] = dummyName
         params["email"] = dummyEmail
         params["password"] = dummyPassword
-        val actualRegister = apiService.registerUser(params)
-        Assert.assertNotNull(actualRegister)
-        Assert.assertEquals(expectedRegisterResponse.message, actualRegister.message)
+        val actualRegister = storyRepository.getRegisterUser(dummyName, dummyEmail, dummyPassword)
+        actualRegister.observeForTesting {
+            Assert.assertNotNull(actualRegister)
+            Assert.assertEquals(expectedRegisterResponse.message, (actualRegister.value as Resource.Success).data?.message)
+        }
     }
 
     @Test
     fun `when login success`() = runTest {
-        val expectedLogin = DataDummy.generateLoginStory()
-        val actualLogin = apiService.loginUser(dummyEmail, dummyPassword)
-        Assert.assertNotNull(actualLogin)
-        Assert.assertEquals(expectedLogin.name, actualLogin.loginResult?.name)
+        val expectedLogin = DataDummy.generateLoginStoryResponse()
+        val actualLogin = storyRepository.getLoginUser(dummyEmail, dummyPassword)
+        actualLogin.observeForTesting {
+            Assert.assertNotNull(actualLogin)
+            Assert.assertEquals(expectedLogin.loginResult?.name, (actualLogin.value as Resource.Success).data?.name)
+        }
     }
 
     @Test
     fun `when get map success`() = runTest {
-        val expectedMaps = DataDummy.generateDummyStory()
-        val actualMaps = apiService.getMapStory(dummyToken, dummyPage, dummySize, 1)
-        Assert.assertNotNull(actualMaps)
-        Assert.assertEquals(expectedMaps.size, actualMaps.listStory?.size)
+        val expectedMaps = DataDummy.generateDummyStoryResponse()
+        val actualMaps = storyRepository.getMapStory(context, dummyToken, dummyPage)
+        actualMaps.observeForTesting {
+            Assert.assertNotNull(actualMaps)
+            Assert.assertEquals(expectedMaps.size, (actualMaps.value as Resource.Success).data?.size)
+        }
     }
 
     @Test
     fun `when get story success`() = runTest {
-        val expectedResult = DataDummy.generateDummyPagedStoryRepo()
-        val actualResult = apiService.getListUser(dummyToken)
-        Assert.assertNotNull(actualResult)
-        Assert.assertEquals(expectedResult.size, actualResult.listStory?.size)
+        val data= DataDummy.generateDummyPagedStoryRepo()
+        val expect = Resource.Success(StoryPagingSource.snapshot(data))
+        val expectedResult = MutableLiveData<Resource<PagingData<ItemListStoryEntity>>>()
+        expectedResult.value = expect
+
+        val actualResult = storyRepository.getStoryUser(dummyToken).getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = ListStoryAdapter.DIFF_CALLBACK,
+            updateCallback = noopListCallback,
+            workerDispatcher = Dispatchers.Main
+        )
+
+        Assert.assertNotNull(differ.snapshot())
+        Assert.assertTrue(actualResult is Resource.Success)
     }
 
     @Test
@@ -95,20 +130,41 @@ class StoryRepositoryTest {
             requestImageFile
         )
 
-        val expectedResult = DataDummy.generateAddNewStory()
-        val actualResult = apiService.uploadImage(
-            dummyToken,
-            imageMultipart,
-            HashMap(
-                mutableMapOf<String, RequestBody>().apply {
-                    put("description", description)
-                    put("lat", dummyLatitude)
-                    put("lon", dummyLongitude)
-                }
-            )
-        )
-        Assert.assertNotNull(actualResult)
-        Assert.assertEquals(expectedResult.message, actualResult.message)
+        val expectedResult = DataDummy.generateAddNewStoryResponse()
+
+        val actualResult = storyRepository.setUploadImage(context, dummyToken, imageMultipart, description, location)
+        actualResult.observeForTesting {
+            Assert.assertNotNull(actualResult)
+            Assert.assertEquals(expectedResult.message, (actualResult.value as Resource.Success).data?.message)
+        }
+    }
+
+    class StoryPagingSource : PagingSource<Int, LiveData<List<ItemListStoryEntity>>>() {
+
+        companion object {
+            fun snapshot(items: List<ItemListStoryEntity>) : PagingData<ItemListStoryEntity> {
+                return PagingData.from(items)
+            }
+        }
+
+        override fun getRefreshKey(state: PagingState<Int, LiveData<List<ItemListStoryEntity>>>): Int? {
+            return 0
+        }
+
+        override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LiveData<List<ItemListStoryEntity>>> {
+            return LoadResult.Page(emptyList(), 0, 1)
+        }
+    }
+
+    private val noopListCallback = object : ListUpdateCallback {
+        override fun onInserted(position: Int, count: Int) {}
+
+        override fun onRemoved(position: Int, count: Int) {}
+
+        override fun onMoved(fromPosition: Int, toPosition: Int) {}
+
+        override fun onChanged(position: Int, count: Int, payload: Any?) {}
+
     }
 
     companion object {

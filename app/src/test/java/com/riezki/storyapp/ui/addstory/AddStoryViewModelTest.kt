@@ -4,11 +4,9 @@ import android.content.Context
 import android.location.Location
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.maps.model.LatLng
 import com.riezki.storyapp.model.local.AddNewStoryResultEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
-import com.riezki.storyapp.ui.authenticasion.login.dataStore
 import com.riezki.storyapp.utils.DataDummy
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.getOrAwaitValue
@@ -44,14 +42,13 @@ class AddStoryViewModelTest {
 
     @Mock
     private lateinit var dataStore: DataStorePreference
-    lateinit var context: Context
+    private lateinit var context: Context
     private lateinit var location: Location
 
     @Before
     fun setUp() {
         location = mock(Location::class.java)
         context = mock(Context::class.java)
-        //dataStore = mock(DataStorePreference(context.dataStore)::class.java)
         viewModel = AddStoryViewModel(dataStore, storyRepository)
     }
 
