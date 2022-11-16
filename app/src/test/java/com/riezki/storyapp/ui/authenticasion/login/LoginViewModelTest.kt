@@ -3,11 +3,14 @@ package com.riezki.storyapp.ui.authenticasion.login
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.riezki.storyapp.model.local.LoginResultEntity
+import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
 import com.riezki.storyapp.utils.DataDummy
+import com.riezki.storyapp.utils.MainDispatcherRule
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -24,6 +27,12 @@ class LoginViewModelTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
+    @Mock
+    private lateinit var preference: DataStorePreference
 
     @Mock
     private lateinit var storyRepository: StoryRepository
@@ -59,9 +68,22 @@ class LoginViewModelTest {
         Assert.assertTrue(actualResult is Resource.Error)
     }
 
+    @Test
+    fun `when get token must be saved`() = runTest {
+        loginViewModel.saveTokenDataStore(preference, tokenDummy)
+        verify(preference).saveTokenToDataStore(tokenDummy)
+    }
+
+    @Test
+    fun `when state must be true`() = runTest {
+        loginViewModel.saveLoginStateDataStore(preference)
+        verify(preference).saveLoginToDataStore()
+    }
+
     companion object {
         private const val emailDummy = "kiki@gmail.com"
         private const val passDummy = "123456"
+        private const val tokenDummy = "user_token"
     }
 }
 

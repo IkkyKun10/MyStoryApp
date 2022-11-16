@@ -48,4 +48,16 @@ class SplashScreenViewModelTest {
         Assert.assertFalse(!actual)
         Assert.assertEquals(true, actual)
     }
+
+    @Test
+    fun `when state false return false`() = runTest {
+        val expected: Flow<Boolean> = flow { emit(false) }
+        Mockito.`when`(preference.readLoginStateFromDataStore).thenReturn(expected)
+
+        val actual = viewModel.readStateLogin.getOrAwaitValue()
+        Mockito.verify(preference).readLoginStateFromDataStore
+        Assert.assertTrue(!actual)
+        Assert.assertFalse(actual)
+        Assert.assertEquals(false, actual)
+    }
 }

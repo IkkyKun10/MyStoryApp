@@ -56,13 +56,11 @@ class ListStoryFragment : Fragment(), ListStoryAdapter.StoryCallback {
     }
 
     private fun getListDataServer() {
-        //showLoading(true)
         var token = ""
         viewModel.userTokenFromDataStore.observe(viewLifecycleOwner) {
             token = it
 
             viewModel.getListStory("Bearer $token").observe(viewLifecycleOwner) { list ->
-                //showLoading(false)
                 if (list != null) {
                     when (list) {
                         is Resource.Loading -> {
