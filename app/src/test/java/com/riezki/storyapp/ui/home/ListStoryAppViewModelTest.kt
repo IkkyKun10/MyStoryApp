@@ -17,6 +17,8 @@ import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -26,6 +28,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
@@ -96,6 +99,24 @@ class ListStoryAppViewModelTest {
         Assert.assertNotNull(differ.snapshot())
         Assert.assertTrue(actualResult is Resource.Error)
 
+    }
+
+    @Test
+    fun `when get logout should logout`() = runTest {
+        viewModel.getLogout()
+        verify(dataStore).logoutFromDataStore()
+    }
+
+    @Test
+    fun `when should read token`() = runTest {
+        val expected: Flow<String> = flow { emit(dummyToken) }
+        `when`(dataStore.readTokenFromDataStore).thenReturn(expected)
+
+        val actual = viewModel.userTokenFromDataStore.getOrAwaitValue()
+
+        verify(dataStore).readTokenFromDataStore
+        Assert.assertNotNull(actual)
+        Assert.assertEquals(dummyToken, actual)
     }
 
     companion object {

@@ -7,10 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import com.riezki.storyapp.model.local.AddNewStoryResultEntity
 import com.riezki.storyapp.model.preference.DataStorePreference
 import com.riezki.storyapp.network.StoryRepository
+import com.riezki.storyapp.ui.home.ListStoryAppViewModelTest
 import com.riezki.storyapp.utils.DataDummy
+import com.riezki.storyapp.utils.MainDispatcherRule
 import com.riezki.storyapp.utils.Resource
 import com.riezki.storyapp.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -34,6 +39,9 @@ class AddStoryViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
     private lateinit var storyRepository: StoryRepository
@@ -92,6 +100,18 @@ class AddStoryViewModelTest {
         val actualResult = viewModel.setUploadImage(context, dummyToken, imageMultipart, description, location).getOrAwaitValue()
         Assert.assertNotNull(actualResult)
         Assert.assertTrue(actualResult is Resource.Error)
+    }
+
+    @Test
+    fun `when should read token`() = runTest {
+        val expected: Flow<String> = flow { emit(dummyToken) }
+        `when`(dataStore.readTokenFromDataStore).thenReturn(expected)
+
+        val actual = viewModel.userTokenFromDataStore.getOrAwaitValue()
+
+        Mockito.verify(dataStore).readTokenFromDataStore
+        Assert.assertNotNull(actual)
+        Assert.assertEquals(dummyToken, actual)
     }
 
     companion object {
