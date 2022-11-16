@@ -30,6 +30,11 @@ Skenario Pengujian
     b. Ketika gagal memuat data AddStory
         - Memastikan mengembalikan Resource.Error
 
+    c. Ketika berhasil membaca/memanggil token
+        - Memastikan bahwa fungsi readToken terpanggil
+        - Memastikan bahwa data token tidak null
+        - Memastikan bahwa data sesuai
+
 4. Skenario testing ListStoryAppViewModelTest
     a. Ketika berhasil memuat data list Story
         - Memastikan data tidak null
@@ -38,6 +43,14 @@ Skenario Pengujian
     b. Ketika gagal memuat data AddStory
         - Memastikan mengembalikan Resource.Error
 
+    c. Ketika berhasil logout
+        - Memastikan bahwa fungsi logout terpanggil
+
+    d. Ketika berhasil membaca/memanggil token
+        - Memastikan bahwa fungsi readToken terpanggil
+        - Memastikan bahwa data token tidak null
+        - Memastikan bahwa data sesuai
+
 5. Skenario testing MapsViewModelTest
     a. Ketika berhasil memuat data list Story maps
         - Memastikan data tidak null
@@ -45,6 +58,11 @@ Skenario Pengujian
 
     b. Ketika gagal memuat data maps
         - Memastikan mengembalikan Resource.Error
+
+    c. Ketika berhasil membaca/memanggil token
+        - Memastikan bahwa fungsi readToken terpanggil
+        - Memastikan bahwa data token tidak null
+        - Memastikan bahwa data sesuai
 
 6. Skenario Testing SplashScreenViewModelTest
     a. Ketika berhasil mengembalikan nilai true
