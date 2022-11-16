@@ -8,6 +8,12 @@ Skenario Pengujian
     b. Ketika gagal memuat data login
         - memastikan mengembalikan Resource.Error
 
+    c. Ketika fungsi save token dipanggil
+        - memastikan bahwa fungsi preference terpanggil
+
+    d. Ketika login state true
+        - memastikan bahwa fungsi state preference terpanggil
+
 2. Skenario testing RegisterViewModelTest
     a. Ketika berhasil memuat data register
         - Memastikan data tidak null
@@ -44,6 +50,11 @@ Skenario Pengujian
     a. Ketika berhasil mengembalikan nilai true
         - memastikan fungsi yang dipanggil adalah preference.readStateLogin
         - memastikan actual mengembalikan nilai true
+        - memastikan bahwa mengembalikan data yang sesuai
+
+    b. Ketika berhasil mengembalikan nilai false
+        - memastikan fungsi yang dipanggil adalah preference.readStateLogin
+        - memastikan actual mengembalikan nilai false
         - memastikan bahwa mengembalikan data yang sesuai
 
 6. Skenario testing StoryRepositoryTest
