@@ -70,10 +70,10 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(false)
                     viewModel.saveTokenDataStore(DataStorePreference(dataStore), it.data?.token ?: "")
                     viewModel.saveLoginStateDataStore(DataStorePreference(dataStore))
-                    Intent(this, HomeActivity::class.java).also { intent ->
-                        startActivity(intent)
-                        finish()
-                    }
+                    val intent = Intent(this, HomeActivity::class.java)
+                    intent.putExtra(HomeActivity.EXTRA_NAME, it.data)
+                    startActivity(intent)
+                    finish()
                 }
 
                 is Resource.Error -> {
